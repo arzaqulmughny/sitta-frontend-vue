@@ -1,0 +1,1 @@
+export default ["MK Wajib", "MK Pilihan", "Praktikum", "Problem-Based"];

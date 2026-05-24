@@ -5,12 +5,13 @@
             required: false,
             default: 'primary'
         },
-        icon: Object
+        icon: Object,
+        inheritAttrs: false
     })
 </script>
 
 <template>
-    <button class="button" :class="`button--${variant}`">
+    <button v-bind="$attrs" class="button" :class="`button--${variant}`">
         <component :is="icon" class="button__icon" v-if="icon" />
         <p class="button__text">
             <slot />
@@ -24,6 +25,7 @@
     cursor: pointer;
     align-items: center;
     column-gap: 8px;
+    justify-content: center;
     padding: 6px 12px;
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 10);
@@ -34,7 +36,7 @@
 }
 
 .button__icon {
-    height: 22px;
+    height: 18px;
 }
 
 .button--white .button__icon {

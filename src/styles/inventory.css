@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 42px;
-    width: 100%;
+    flex: 1;
 }
 
 body {
@@ -13,10 +13,15 @@ body {
 
 .header {
     display: flex;
+    justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    .header__left {
+        display: flex;
     flex-direction: column;
     row-gap: 12px;
 }
-
 /* Analytic */
 .card-analytic {
     display: grid;
@@ -35,54 +40,6 @@ body {
     background-color: white;
 }
 
-.card-analytics-icon {
-    width: 38px;
-    aspect-ratio: 1/1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-}
-
-.card-analytics-icon svg {
-    scale: 80%;
-    fill: rgba(0, 0, 0, 0.746);
-}
-
-.card-analytics-title {
-    font-size: 12px;
-}
-
-.card-analytics-amount {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--color-primary);
-}
-
-.card-analytics__header {
-    display: flex;
-    justify-content: space-between;
-}
-
-.card-analytics-trend {
-    display: flex;
-    align-items: center;
-    background-color: rgb(240, 240, 240);
-    border-radius: 12px;
-    width: fit-content;
-    column-gap: 8px;
-    height: fit-content;
-    padding-inline: 5px;
-}
-
-.card-analytics-trend svg {
-    fill: rgb(85, 193, 85);
-}
-
-.card-analytics-trend p {
-    font-size: 10px;
-}
-
 /* Table */
 .inventory {
     overflow: auto;
@@ -90,43 +47,9 @@ body {
     border: 1px solid var(--color-border);
 }
 
-table {
-    width: 100%;
-}
-
-thead tr td {
-    background-color: rgb(255, 255, 255);
-    font-size: 14px;
-    text-wrap: nowrap;
-    font-weight: 510;
-    color: rgb(22, 22, 22);
-}
-
-table tr td {
-    padding: 12px 24px;
-}
-
-tr {
-    border-bottom: 1px solid var(--color-border);
-}
-
-tbody tr td {
-    padding-block: 32px;
-}
-
-.stock--available p {
-    background-color: rgb(226, 250, 226);
-    color: rgb(21, 181, 21);
-    text-align: center;
-    border-radius: 8px;
-    font-size: 12px;
-    padding: 4px 8px;
-    width: fit-content;
-    font-weight: 510;
-}
-
 /* Search */
 .search {
+    width: 100%;
     display: flex;
     align-items: center;
     border: 1px solid var(--color-border);
@@ -147,11 +70,19 @@ tbody tr td {
     outline: none;
 }
 
-/* Actions */
-.actions {
+.search-icon svg {
+    width: 18px;
+}
+
+/* Filters */
+.filters {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .filters>* {
+        flex: 1;
 }
 
 /* Add button */
@@ -198,4 +129,36 @@ tbody tr td {
 .pagination button:hover {
     background-color: var(--color-primary);
     color: white;
+}
+/* Stock */
+.stock-status {
+    font-size: 10px !important;
+    text-wrap: nowrap;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.stock-ok {
+    background-color: rgb(188, 244, 188);
+    color: rgb(8, 60, 8);
+}
+
+.stock-warn {
+    background-color: rgb(255, 233, 168);
+    color: rgb(87, 67, 6);
+}
+
+.stock-danger {
+    background-color: #ffd0d0;
+    color: #960000;
+}
+
+.select {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    background-color: white;
+    border-radius: 8px;
+    padding: 9px 12px;
+    min-width: 300px;
+    cursor: pointer;
 }

@@ -1,0 +1,1 @@
+export default ["Jakarta", "Surabaya", "Makassar", "Padang", "Denpasar"];
