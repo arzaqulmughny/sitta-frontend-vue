@@ -169,6 +169,10 @@ table {
     font-weight: 600;
 }
 
+.h6 {
+    font-size: 14px;
+    font-weight: 600;
+}
 .p {
     font-size: 13px;
     line-height: 22px;

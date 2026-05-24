@@ -13,7 +13,11 @@ import OutlineStats from '@/components/icons/OutlineStats.vue';
 import OutlineTruck from '@/components/icons/OutlineTruck.vue';
 import MainMenuItem from '@/components/MainMenuItem.vue';
 import Button from '@/ui/Button.vue';
+import { onMounted } from 'vue';
 
+onMounted(() => {
+    document.title = 'Beranda - Sistem Tracking Bahan Ajar'
+});
 </script>
 
 <template>
@@ -32,7 +36,7 @@ import Button from '@/ui/Button.vue';
                     <Button :icon="OutlineMagnifier">Cari Resi</Button>
                 </RouterLink>
 
-                <RouterLink to="/">
+                <RouterLink to="/tracking">
                     <Button variant="white" :icon="OutlinePlusCircle">Input DO Baru</Button>
                 </RouterLink>
             </div>

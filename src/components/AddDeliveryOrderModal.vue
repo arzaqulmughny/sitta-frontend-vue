@@ -54,7 +54,7 @@ const onClose = () => {
 
 // Watch
 watch(() => props.open, () => {
-    open ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+    props.open ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
 })
 
 watch(form, () => {
@@ -84,7 +84,8 @@ onMounted(() => {
 
                 <div class="modal-body">
                     <div class="form">
-                        <component v-for="column in columns.filter((column) => column.type == 'text' || column.type == 'date')"
+                        <component
+                            v-for="column in columns.filter((column) => column.type == 'text' || column.type == 'date')"
                             :key="column.column" :is="resolveComponent(column.type)" v-bind="column"
                             :placeholder="column.placeholder" :label="column.title" :data="column.data"
                             :name="column.column" :required="false" v-model="form[column.column]" />
@@ -101,14 +102,15 @@ onMounted(() => {
                         <div v-if="form.paket">
                             <p class="p">Isi Bahan Ajar:</p>
                             <ul class="packages">
-                                <li v-for="packageItem in packages.find(packageItem => packageItem.kode == form.paket).isi" v-text="packageItem" class="p"/>
+                                <li v-for="packageItem in packages.find(packageItem => packageItem.kode == form.paket).isi"
+                                    v-text="packageItem" class="p" />
                             </ul>
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <Button type="button" @click="onClose" variant="outline" style="width: fit-content;"
+                    <Button type="button" @click="onClose" variant="white" style="width: fit-content;"
                         :icon="OutlineClose">Batal</Button>
                     <Button type="submit" style="width: fit-content;" :icon="OutlinePlusCircle">Tambah</Button>
                 </div>

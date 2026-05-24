@@ -43,7 +43,7 @@ const onClose = () => {
 
 // Watch
 watch(() => props.open, () => {
-    open ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
+    props.open ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
 })
 
 </script>
@@ -70,7 +70,8 @@ watch(() => props.open, () => {
                 </div>
 
                 <div class="modal-footer">
-                    <Button type="button" @click="onClose" variant="outline" style="width: fit-content;" :icon="OutlineClose">Batal</Button>
+                    <Button type="button" @click="onClose" variant="white" style="width: fit-content;"
+                        :icon="OutlineClose">Batal</Button>
                     <Button type="submit" style="width: fit-content;" :icon="OutlinePlusCircle">Tambah</Button>
                 </div>
             </div>

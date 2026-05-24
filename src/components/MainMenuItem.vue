@@ -22,10 +22,10 @@ defineProps({
                 <component :is="icon" />
             </div>
 
-            <h3 class="main-menu-item-title">{{ title }}</h3>
+            <h3 class="h6">{{ title }}</h3>
         </div>
 
-        <p class="main-menu-item__description">
+        <p class="p">
             {{ description }}
         </p>
     </div>

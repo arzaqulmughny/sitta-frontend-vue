@@ -1,18 +1,28 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-    let expand = ref(false);
+let expand = ref(false);
+
+const route = useRoute()
+
+watch(
+    () => route.path,
+    (path) => {
+        expand.value = false
+    }
+)
 </script>
 
 <template>
     <nav class="navbar">
-        <div class="navbar-logo">
+        <RouterLink to="/" class="navbar-logo">
             <img src="/assets/images/Universitas Terbuka.png" alt="">
             <div class="navbar-logo-text">
                 <p>SITTA</p>
                 <p>Bahan Ajar Digital</p>
             </div>
-        </div>
+        </RouterLink>
 
         <ul id="navbar-menu" :class="expand ? 'navbar-menu--active' : ''" class="navbar-menu">
             <li>
@@ -47,7 +57,7 @@ import { ref } from 'vue';
                     <p>Informasi Stok</p>
                 </RouterLink>
             </li>
-
+            <!-- 
             <li>
                 <a href="/logout" class="navbar-links" onclick="return confirm('Apakah anda yakin ingin logout?')">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
@@ -57,7 +67,7 @@ import { ref } from 'vue';
                     </svg>
                     <p>Logout</p>
                 </a>
-            </li>
+            </li> -->
         </ul>
 
         <button id="navbar-toggle" class="navbar-toggle" @click="expand = !expand">

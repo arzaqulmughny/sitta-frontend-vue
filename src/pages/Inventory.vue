@@ -102,19 +102,20 @@ const onCloseUpsertModal = (payload = null) => {
 
             return
         }
+
+        storeInventoryData(payload);
+
+        Swal.fire({
+            title: 'Berhasil',
+            text: 'Bahan ajar berhasil ditambahkan.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        })
+
+        data.value = getInventoryData(buildParams());
     }
 
-    storeInventoryData(payload);
-
-    Swal.fire({
-        title: 'Berhasil',
-        text: 'Bahan ajar berhasil ditambahkan.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    })
-
     openUpsertModal.value = false;
-    data.value = getInventoryData(buildParams());
 }
 
 // Watch
@@ -125,6 +126,7 @@ watch([selectedBranch, selectedSubjectCategory, selectedStockStatus, selectedOrd
 // On mount
 onMounted(() => {
     data.value = getInventoryData(buildParams())
+    document.title = 'Informasi Stok - Sistem Tracking Bahan Ajar'
 })
 </script>
 

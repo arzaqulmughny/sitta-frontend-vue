@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Swal from 'sweetalert2'
 import { findTrackingData, storeTrackingData } from '@/data/tracking';
 import Button from '@/ui/Button.vue';
@@ -74,21 +74,26 @@ const onCloseUpsertModal = (payload = null) => {
             })
             return
         }
+
+        const newNumber = storeTrackingData(payload);
+
+        Swal.fire({
+            title: 'Berhasil',
+            text: 'Data Pengiriman Berhasil Ditambahkan!',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        })
+
+        number.value = newNumber;
+        onSubmit();
     }
 
-    const newNumber = storeTrackingData(payload);
-
-    Swal.fire({
-        title: 'Berhasil',
-        text: 'Data Pengiriman Berhasil Ditambahkan!',
-        icon: 'success',
-        confirmButtonText: 'OK'
-    })
-
     openUpsertModal.value = false;
-    number.value = newNumber;
-    onSubmit();
 }
+
+onMounted(() => {
+    document.title = 'Tracking Pengiriman - Sistem Tracking Bahan Ajar'
+})
 
 </script>
 
