@@ -130,28 +130,6 @@ body {
     background-color: var(--color-primary);
     color: white;
 }
-/* Stock */
-.stock-status {
-    font-size: 10px !important;
-    text-wrap: nowrap;
-    padding: 4px 8px;
-    border-radius: 12px;
-}
-
-.stock-ok {
-    background-color: rgb(188, 244, 188);
-    color: rgb(8, 60, 8);
-}
-
-.stock-warn {
-    background-color: rgb(255, 233, 168);
-    color: rgb(87, 67, 6);
-}
-
-.stock-danger {
-    background-color: #ffd0d0;
-    color: #960000;
-}
 
 .select {
     width: 100%;

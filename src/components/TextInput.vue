@@ -2,6 +2,7 @@
 defineProps({
     label: String,
     inheritAttrs: false,
+    modelValue: [String, String]
 })
 
 const emit = defineEmits([
@@ -12,7 +13,8 @@ const emit = defineEmits([
 <template>
     <label class="input-group">
         <p v-text="label" class="input-label" />
-        <input v-bind="$attrs" class="input" @input="emit('update:modelValue', $event.target.value)">
+        <input v-bind="$attrs" class="input" @input="emit('update:modelValue', $event.target.value)"
+            :value="modelValue">
     </label>
 </template>
 

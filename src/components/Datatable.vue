@@ -1,5 +1,7 @@
 <script setup>
+import Button from '@/ui/Button.vue';
 import OutlineListOrderIcon from './icons/OutlineListOrderIcon.vue';
+import OutlinePencil from './icons/OutlinePencil.vue';
 
 // Data
 defineProps({
@@ -18,10 +20,14 @@ defineProps({
 })
 
 // Methods
-const emit = defineEmits(['setOrderBy']);
+const emit = defineEmits(['setOrderBy', 'onEditStock']);
 
 const onSetOrderBy = (column) => {
     emit('setOrderBy', column);
+}
+
+const onEditStock = (code) => {
+    emit('onEditStock', code)
 }
 </script>
 
@@ -52,7 +58,14 @@ const onSetOrderBy = (column) => {
                 <td v-text="item.kategori"></td>
                 <td v-text="item.upbjj"></td>
                 <td v-text="item.lokasiRak"></td>
-                <td v-text="item.qty"></td>
+                <td>
+                    <div style="display: flex; align-items: flex-start;">
+                        <p>{{ item.qty }}</p>
+                        <button @click="onEditStock(item.kode)" type="button" class="edit-stock">
+                            <OutlinePencil />
+                        </button>
+                    </div>
+                </td>
                 <td v-text="item.safety"></td>
                 <td v-if="item.qty < item.safety && item.qty > 0"><span class="stock-warn stock-status">Hampir
                         Habis</span></td>
@@ -126,5 +139,37 @@ tbody tr td {
 
 .table-header:hover .table-header__icon {
     opacity: 1;
+}
+/* Stock */
+.stock-status {
+    font-size: 10px !important;
+    text-wrap: nowrap;
+    padding: 4px 8px;
+    border-radius: 12px;
+}
+
+.stock-ok {
+    background-color: rgb(188, 244, 188);
+    color: rgb(8, 60, 8);
+}
+
+.stock-warn {
+    background-color: rgb(255, 233, 168);
+    color: rgb(87, 67, 6);
+}
+
+.stock-danger {
+    background-color: #ffd0d0;
+    color: #960000;
+}
+
+.edit-stock {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-stock svg {
+    width: 12px;
 }
 </style>

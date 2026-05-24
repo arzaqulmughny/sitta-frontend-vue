@@ -81,11 +81,25 @@ const getInventoryData = (filters = {}) => {
         }
     }
 
-    if (filters?.order_by && filters.order_by.length > 0) {
-        const sort = filters?.order_by_sort ?? 'asc';
+    if (filters?.order_by) {
+        const sort = filters.order_by_sort ?? 'asc';
+
         data = data.sort((a, b) => {
-            return sort === 'asc' ? a[filters.order_by].localeCompare(b[filters.order_by]) : b[filters.order_by].localeCompare(a[filters.order_by])
-        })
+            const key = filters.order_by;
+            const valA = a[key] ?? '';
+            const valB = b[key] ?? '';
+            const isNumber = !isNaN(valA) && !isNaN(valB);
+
+            if (isNumber) {
+                return sort === 'asc'
+                    ? Number(valA) - Number(valB)
+                    : Number(valB) - Number(valA);
+            }
+
+            return sort === 'asc'
+                ? String(valA).localeCompare(String(valB))
+                : String(valB).localeCompare(String(valA));
+        });
     }
 
     if (filters?.search && filters.search.length > 0) {
@@ -100,8 +114,19 @@ const storeInventoryData = (payload) => {
     currentData.push(payload);
 
     localStorage.setItem('inventory', JSON.stringify(currentData));
-    
+
     return true;
 }
 
-export { getInventoryData, storeInventoryData };
+const updateStockData = (payload) => {
+    const code = payload.kode;
+    let currentData = getInventoryData();
+
+    if (currentData) {
+        currentData = currentData.map((item) => item.kode == code ? { ...item, ...payload } : item)
+        localStorage.setItem('inventory', JSON.stringify(currentData));
+        return true;
+    }
+}
+
+export { getInventoryData, storeInventoryData, updateStockData };

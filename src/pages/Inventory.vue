@@ -4,11 +4,11 @@ import OutlineAlert from '@/components/icons/OutlineAlert.vue';
 import OutlineBookmark from '@/components/icons/OutlineBookmark.vue';
 import OutlineInventory from '@/components/icons/OutlineInventory.vue';
 import OutlineWarning from '@/components/icons/OutlineWarning.vue';
-import { getInventoryData, storeInventoryData } from "@/data/inventory"
+import { getInventoryData, storeInventoryData, updateStockData } from "@/data/inventory"
 import branchesData from "@/data/branch";
 import subjectCategoriesData from "@/data/subject-category";
 import stockEnum from '@/data/stock-enum';
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import columns from "@/data/inventory-columns";
 import Datatable from '@/components/Datatable.vue';
 import OutlineMagnifier from '@/components/icons/OutlineMagnifier.vue';
@@ -17,6 +17,7 @@ import Button from '@/ui/Button.vue';
 import OutlineClose from '@/components/icons/OutlineClose.vue';
 import AddSubjectModal from '@/components/AddSubjectModal.vue';
 import Swal from 'sweetalert2'
+import EditInventoryQuantityModal from '@/components/EditInventoryQuantityModal.vue';
 
 // Data
 const data = ref([]);
@@ -31,6 +32,10 @@ const selectedOrderBy = ref(null);
 const orderBySort = ref('asc');
 const openUpsertModal = ref(false);
 const searchQuery = ref('');
+const updateStockModal = reactive({
+    open: false,
+    data: null
+})
 
 // Methods
 const buildParams = () => ({
@@ -118,6 +123,59 @@ const onCloseUpsertModal = (payload = null) => {
     openUpsertModal.value = false;
 }
 
+const onEditStock = (code) => {
+    const relatedData = data.value.find(inventory => inventory.kode == code);
+
+    if (relatedData) {
+        updateStockModal.data = {
+            kode: relatedData.kode,
+            qty: relatedData.qty,
+            safety: relatedData.safety
+        }
+
+        updateStockModal.open = true;
+    }
+}
+
+const onCloseUpdateStock = (payload) => {
+    console.log(payload)
+
+    if (payload) {
+        const newStock = payload.qty;
+        const newSafetyStock = payload.safety
+
+        // Validate newStock > 0
+        if (newStock < 0) {
+            Swal.fire({
+                title: 'Gagal',
+                text: 'Stok Saat Ini harus lebih besar dari 0.',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true
+            })
+
+            return;
+        }
+
+        updateStockData(payload);
+
+        Swal.fire({
+            title: "Berhasil",
+            text: "Stok bahan ajar berhasil diubah.",
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: false
+        })
+
+        data.value = getInventoryData(buildParams())
+    }
+
+    updateStockModal.data = null;
+    updateStockModal.open = false
+}
+
 // Watch
 watch([selectedBranch, selectedSubjectCategory, selectedStockStatus, selectedOrderBy, orderBySort, searchQuery], () => {
     data.value = getInventoryData(buildParams())
@@ -190,11 +248,13 @@ onMounted(() => {
 
         <section class="inventory">
             <Datatable :data="data" :columns="columns" :activeOrderBy="selectedOrderBy" :activeOrderBySort="orderBySort"
-                @setOrderBy="setOrderBy" />
+                @setOrderBy="setOrderBy" @onEditStock="onEditStock" />
         </section>
     </main>
 
     <AddSubjectModal :open="openUpsertModal" @onClose="onCloseUpsertModal" />
+    <EditInventoryQuantityModal :open="updateStockModal.open" :data="updateStockModal.data"
+        @onClose="onCloseUpdateStock" />
 </template>
 
 <style scoped src="/src/styles/inventory.css"></style>
