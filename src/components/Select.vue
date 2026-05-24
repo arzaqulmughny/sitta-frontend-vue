@@ -1,18 +1,37 @@
 <script setup>
 defineProps({
     label: String,
+    data: {
+        type: Array,
+        default: () => []
+    },
+    placeholder: String,
+    valueKey: String,
+    labelKey: String,
     inheritAttrs: false,
-    data: Array,
-    placeholder: String
 })
+
+const emit = defineEmits([
+    'update:modelValue'
+])
+
 </script>
 
 <template>
     <label class="input-group">
-        <p v-text="label" class="input-label"/>
-        <select class="input" v-bind="$attrs">
-            <option value="" v-text="placeholder ?? 'Pilih'"></option>
-            <option v-for="value in data" :value="value" v-text="value" :key="value"></option>
+        <p class="input-label">
+            {{ label }}
+        </p>
+
+        <select class="input" v-bind="$attrs" @change="emit('update:modelValue', $event.target.value)">
+            <option :value="null" selected>
+                {{ placeholder ?? 'Pilih' }}
+            </option>
+
+            <option v-for="(value, index) in data" :key="valueKey ? value[valueKey] : index"
+                :value="valueKey ? value[valueKey] : value">
+                {{ labelKey ? value[labelKey] : value }}
+            </option>
         </select>
     </label>
 </template>

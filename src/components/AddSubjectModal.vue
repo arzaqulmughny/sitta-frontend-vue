@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Button from '@/ui/Button.vue';
 import OutlineClose from './icons/OutlineClose.vue';
 import TextInput from './TextInput.vue';
@@ -8,7 +8,7 @@ import OutlinePlusCircle from './icons/OutlinePlusCircle.vue';
 import { watch } from 'vue';
 
 // Props
-defineProps({
+const props = defineProps({
     open: Boolean,
 })
 
@@ -42,7 +42,7 @@ const onClose = () => {
 }
 
 // Watch
-watch([open], () => {
+watch(() => props.open, () => {
     open ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'auto'
 })
 

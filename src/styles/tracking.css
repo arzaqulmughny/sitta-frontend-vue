@@ -2,7 +2,22 @@ body {
     background-color: #f9f9ff;
 }
 
+/* Main */
+.main {
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+    flex: 1;
+}
+
 .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.header__left {
     display: flex;
     flex-direction: column;
     row-gap: 12px;
