@@ -1,0 +1,119 @@
+body {
+    background-color: #f9f9ff;
+}
+
+/* Main */
+.main {
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 42px;
+    flex: 1;
+}
+
+/* Header */
+.header {
+    background: #0A4695;
+    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 12px;
+    position: relative;
+    background: linear-gradient(90deg, rgba(10, 70, 149, 1) 0%, rgba(41, 107, 194, 1) 100%);
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: white;
+}
+
+.header-subtitle {
+    color: rgba(255, 255, 255, 0.619);
+    font-size: 13px;
+    line-height: 22px;
+}
+
+.header-decoration {
+    position: absolute;
+    right: 0;
+    scale: 800%;
+    width: 24px;
+    opacity: 10%;
+    transform-origin: right;
+    color: white;
+}
+
+.header-actions {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+}
+
+/* Analytic */
+.card-analytic {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+/* Main Menu */
+.main-menu-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    width: 100%;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 12px;
+    background-color: white;
+}
+
+/* Announcement */
+.announcement-section {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+    height: fit-content;
+}
+
+.announcement-section-header {
+    display: flex;
+    background-color: white;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+    padding: 24px;
+}
+
+.announcement-section-header:last-child {
+    border-bottom: none;
+}
+
+.announcement-section-header__left {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+}
+
+.announcement-section-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cols-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+}
+
+@media screen and (min-width: 1200px) {
+    .cols-2 {
+        flex-direction: row;
+    }
+}
